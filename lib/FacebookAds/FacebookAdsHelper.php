@@ -23,7 +23,6 @@ class FacebookAdsHelper {
     protected static $instance;
 
 	
-	
 	public function setApiInstance(Api $adsApiInstance) {
 	    //instanceof FacebookAds\Api
 	    self::$instance = $adsApiInstance;
