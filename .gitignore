@@ -1,0 +1,3 @@
+data/
+vendor/
+app/config/credentials.php

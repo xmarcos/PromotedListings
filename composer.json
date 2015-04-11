@@ -1,0 +1,42 @@
+{
+    "name"              : "promotedlistings/promoted-listings",
+    "license"           : "proprietary",
+    "description"       : "PromotedListings",
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+    "require"           : {
+        "twig/twig"                     : "~1.8",
+        "silex/silex"                   : "~1.2",
+        "predis/predis"                 : "~1",
+        "rhumsaa/uuid"                  : "~2",
+        "stack/builder"                 : "~1.0",
+        "nesbot/Carbon"                 : "~1.8",
+        "doctrine/dbal"                 : "~2.5",
+        "doctrine/cache"                : "~1.4",
+        "monolog/monolog"               : "~1",
+        "symfony/console"               : "~2.6",
+        "guzzlehttp/guzzle"             : "~5.0",
+        "symfony/validator"             : "~2.6",
+        "xmarcos/dot-container"         : "~0.1",
+        "symfony/monolog-bridge"        : "~2.6",
+        "predis/service-provider"       : "~1.0",
+        "symfony/doctrine-bridge"       : "~2.6",
+        "symfony/twig-bridge"           : "~2.6",
+        "facebook/php-sdk-v4"           : "~4.0",
+        "facebook/php-ads-sdk"          : "~2.2",
+        "igorw/config-service-provider" : "~1.2"
+    },
+    "require-dev": {
+        "symfony/debug"       : "@stable",
+        "phpunit/phpunit"     : "@stable",
+        "symfony/stopwatch"   : "@stable",
+        "symfony/var-dumper"  : "@stable",
+        "fabpot/php-cs-fixer" : "@stable"
+    },
+    "autoload" : {
+        "psr-4": {
+            "PromotedListings\\"       : "src/",
+            "PromotedListings\\Http\\" : "app/Http/"
+        }
+    }
+}
