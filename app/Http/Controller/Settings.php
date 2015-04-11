@@ -67,6 +67,8 @@ class Settings extends BaseController
         } catch (Exception $e) {
             jlog($e->getMessage());
         }
+        dump($request);
+        die();
     }
 
 }

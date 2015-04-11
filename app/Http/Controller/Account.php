@@ -26,11 +26,10 @@ class Account extends BaseController
 
         $meli = new \Meli(
             $app->config()->get('credentials.meli_app.app_id'),
-            $app->config()->get('credentials.meli_app.app_secrets')
+            $app->config()->get('credentials.meli_app.app_secret')
         );
 
         $auth_url = $app->config()->get('credentials.meli_app.app_url');
-
         if ($request->get('code')) {
             $oAuth = $meli->authorize($request->get('code'), $auth_url);
             /*$access_token = $oAuth['body']->access_token;
