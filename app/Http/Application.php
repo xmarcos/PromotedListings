@@ -65,16 +65,16 @@ class Application extends Silex\Application
         });
 
         FacebookSession::setDefaultApplication(
-            $this->config()->get('facebook_app.app_id'),
-            $this->config()->get('facebook_app.app_secret')
+            $this->config()->get('credentials.facebook_app.app_id'),
+            $this->config()->get('credentials.facebook_app.app_secret')
         );
 
         $this['facebook.login_helper'] = $this->share(
             function (Application $app) {
                 return new FacebookRedirectLoginHelper(
-                    $app->config()->get('facebook_app.redirect_url'),
-                    $app->config()->get('facebook_app.app_id'),
-                    $app->config()->get('facebook_app.app_secret')
+                    $app->config()->get('credentials.facebook_app.redirect_url'),
+                    $app->config()->get('credentials.facebook_app.app_id'),
+                    $app->config()->get('credentials.facebook_app.app_secret')
                 );
             }
         );
