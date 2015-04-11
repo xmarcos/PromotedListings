@@ -45,17 +45,23 @@ class Application extends Silex\Application
             'resources' => sprintf('%s/resources', $root_path),
         ];
 
-        $config = require sprintf('%s/app.php', $paths['config']);
-        $this->config = DotContainer::create($config);
+        $app         = require sprintf('%s/app.php', $paths['config']);
+        $credentials = require sprintf('%s/credentials.php', $paths['config']);
+
+        $this->config = DotContainer::create($app);
         $this->config->set('paths', $paths);
+        $this->config->set('credentials', $credentials);
 
         $this['debug'] = $this->config->get('debug');
     }
 
     protected function setupFacebookServices()
     {
+        //Hack to ensure Facebook has a session
         $this->before(function (Request $request) {
-            $request->getSession()->start();
+            if (!headers_sent()) {
+                $request->getSession()->start();
+            }
         });
 
         FacebookSession::setDefaultApplication(

@@ -21,25 +21,27 @@ class Account extends BaseController
     {
         return $app['twig']->render('account/index.html.twig');
     }
-    
-    public function accountLogin(Request $request, Application $app) {
-       $Meli = new \Meli('4673127771555620', 'WbMuL0JsR7lz6nTOYWAts1IOP6ZTBH57');
-       $auth_url = 'http://meli-promotedlistings.ngrok.com/account/login';
-       
-       if ($request->get('code')) {
-           $oAuth = $Meli->authorize($request->get('code'), $auth_url);
-           /*$access_token = $oAuth['body']->access_token;
-           $_SESSION['access_token'] = $access_token;
-           echo $access_token;*/
-           echo '<pre>';
-           var_dump($oAuth);
-           die();
-       } else {
-           
-           $login_url = $Meli->getAuthUrl($auth_url);
-           return $app['twig']->render('account/login.html.twig', array('login_url' => $login_url));
-       }
 
+    public function accountLogin(Request $request, Application $app) {
+
+        $meli = new \Meli(
+            $app->config()->get('credentials.meli_app.app_id'),
+            $app->config()->get('credentials.meli_app.app_secrets')
+        );
+
+        $auth_url = $app->config()->get('credentials.meli_app.app_url');
+
+        if ($request->get('code')) {
+            $oAuth = $meli->authorize($request->get('code'), $auth_url);
+            /*$access_token = $oAuth['body']->access_token;
+            $_SESSION['access_token'] = $access_token;
+            echo $access_token;*/
+            dump($oAuth);
+            die();
+        } else {
+            $login_url = $meli->getAuthUrl($auth_url);
+            return $app['twig']->render('account/login.html.twig', array('login_url' => $login_url));
+        }
        //return $app['twig']->render('account/login.html.twig', array('login_url' => $login_url));
-   }
+    }
 }
