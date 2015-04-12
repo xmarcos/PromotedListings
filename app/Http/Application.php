@@ -170,7 +170,7 @@ class Application extends Silex\Application
         $this->mount('/', new Controller\Home());
         $this->mount('/account', new Controller\Account()); // Login Meli
         $this->mount('/listing', new Controller\Listing()); // Productos Meli
-        $this->mount('/service', new Controller\Service()); // Facebook Account Link
+        $this->mount('/promote', new Controller\Promote()); // Facebook Account Link
         $this->mount('/settings', new Controller\Settings()); // Facebook Account Link
     }
 }
