@@ -4,7 +4,7 @@
 
 {% block content %}
     {% for page in pages %}
-        <a href="{{ path('promote_pages', {page_id: page.id}) }}">{{page.name}}</a>
+        <a href="{{ path('promote_pages', {page_id: page.id, item_id: item_id}) }}">{{page.name}}</a>
         <hr>
     {% endfor %}
 {% endblock %}

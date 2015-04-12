@@ -4,7 +4,7 @@
 
 {% block content %}
     {% for event in events %}
-        <a href="{{ path('promote_events', {event_id: event.id}) }}">{{event.name}}</a>
+        <a href="{{ path('promote_events', {event_id: event.id, item_id: item_id}) }}">{{event.name}}</a>
         <hr>
     {% endfor %}
 {% endblock %}
