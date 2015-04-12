@@ -4,6 +4,7 @@ namespace PromotedListings\Http\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Facebook\FacebookSession;
 use Facebook\Entities\AccessToken;
 
@@ -85,13 +86,15 @@ class Settings extends BaseController
             $error_message = $e->getMessage();
         }
 
-        if (!$error && $access_token instanceof AccessToken) {
+        if ($success && $access_token instanceof AccessToken) {
             $app['facebook.ad_service']->setAccessToken($access_token);
             $accounts = $app['facebook.ad_service']->getActiveAccounts();
             dump($accounts);
         } else {
-            dump($error);
+            dump($error_message);
         }
+
+        dump($success);
 
         dump($request);
         die();
