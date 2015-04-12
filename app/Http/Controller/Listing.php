@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Listing extends BaseController {
 
-    public function connect(Application $app) {
+    public function connect(Application $app)
+    {
         $this->app = $app;
         $controllers = $app['controllers_factory'];
 

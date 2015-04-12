@@ -49,9 +49,12 @@ class Account extends BaseController {
                 $save = $app['meli.authentication_service']->saveUser($user_info);
                 if ($save) {
                     $app['meli.authentication_service']->loginUser($user_info->get('id'));
-                    return $app->redirect(
-                        $app->path('account_dashboard')
-                    );
+                    $redirect = $app['session']->has('redirect_url')
+                        ? $app['session']->get('redirect_url')
+                        : $app->path('account_dashboard');
+
+                    return $app->redirect($redirect);
+
                 } else {
                     die('Unable to save user(?)');
                 }

@@ -41,7 +41,7 @@ class Settings extends BaseController
 
     public function facebookAccounts(Request $request, Application $app)
     {
-        $access_token = new AccessToken("CAAWR4iINZACIBAJ6RYdgDT4AtIgyeytEVlH4oiDshBt6W1j6ZBDwVI0kz0ljj3JxpCvcDQ6KaGnDSYYqq0er70xhyMZA8h4OoprwoZAbuqVkPtm8fQyRGy87sj1fo2N46d3X2RtkvQ4ew7zNV7bhFYOwGvz4ZCpZC4H05fanP14mzGgBqKQc58kYHp34c4cpDr1aQblPRZB9hstxlflTQF0gseCnH4eapsPmKQiP2jtiwZDZD");
+        $access_token = new AccessToken("CAAWR4iINZACIBAIbwZCxtcFzvghAqntIZA3E2pssJ5zHz2tnshKCPrQjJZBrUEejipn5x2kfsYQnSqeYcBTUBAkv5EFH6II4RwnVapAbyTO5kTHZAmq0jTezNYk6LvZCzsJ9wJHRf1oyYCpaB3vzFRSrjEuqf0CPkyPuqW6zeIvbSXjL8q8isfjoZBAtn9xSONBYjG7jZAhB2ilN310ddXnUj0OPHVp989o4hYk6muJf3wZDZD");
 
         $app['facebook.ad_service']->setAccessToken($access_token);
 
