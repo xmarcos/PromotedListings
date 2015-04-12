@@ -23,7 +23,7 @@ class Listing extends BaseController
     {
         $user         = $app['meli.authentication_service']->getCurrentUser();
         $access_token = $user->get('access_token');
-
+        
         $app['meli.api']->setAccessToken($access_token);
 
         $path  = sprintf('/users/%s/items/search', $user->get('user_id'));
@@ -31,9 +31,9 @@ class Listing extends BaseController
 
         $params = [
             'access_token' => $access_token,
+            'status' => 'active',
             'attributes'   => 'results,paging',
         ];
-
         if (!empty($query)) {
             $params['q'] = $query;
         }
@@ -45,10 +45,10 @@ class Listing extends BaseController
         $message         = '';
 
         if ($total_items == 0) {
-            if (empty($params['q'])) {
+            if (!isset($params['q']))
                 $message = 'no existen articulos en su cuenta';
+            else
                 $message = 'no existen articulos con la siguiente busqueda: '.$params['q'];
-            }
         }
 
         $items_response = $app['meli.api']->get(
@@ -61,7 +61,7 @@ class Listing extends BaseController
         );
 
         $items = $items_response['body'];
-
+        
         return $app['twig']->render(
             'listing/index.html.twig',
             [
