@@ -12,10 +12,10 @@ class Promote extends BaseController {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'promoteIndex']);
-        $controllers->get('/facebook/ads', [$this, 'accountLogin'])->bind('login');
-        $controllers->get('/facebook/pages', [$this, 'accountLogin'])->bind('login');
-        $controllers->get('/facebook/events', [$this, 'accountLogin'])->bind('login');
-        $controllers->get('/facebook/groups', [$this, 'accountLogin'])->bind('login');
+        $controllers->get('/facebook/ads', [$this, 'accountLogin']);
+        $controllers->get('/facebook/pages', [$this, 'accountLogin']);
+        $controllers->get('/facebook/events', [$this, 'accountLogin']);
+        $controllers->get('/facebook/groups', [$this, 'accountLogin']);
 
         return $controllers;
     }
