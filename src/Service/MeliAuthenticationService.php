@@ -49,6 +49,7 @@ class MeliAuthenticationService
         $meli_user = $this->getUserById($user_id);
 
         if ($meli_user) {
+            $meli_user->set('access_token', $this->access_token);
             $this->session->set('meli_user', $meli_user);
         }
     }
@@ -67,7 +68,12 @@ class MeliAuthenticationService
     {
         $response = $this->meli->authorize($code, $this->redirect_uri);
 
-        return $this->getDataFromResponse($response);
+        $data = $this->getDataFromResponse($response);
+        if (!empty($data)) {
+            $this->access_token = $data->get('access_token');
+        }
+
+        return $data;
     }
 
     public function getUserInfoFromAccessToken(DotContainer $access_token)

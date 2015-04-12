@@ -22,13 +22,7 @@ class Account extends BaseController {
 
     public function accountIndex(Request $request, Application $app)
     {
-        if ($app['meli.authentication_service']->hasActiveSession()) {
-            return $app['twig']->render('account/index.html.twig');
-        } else {
-            return $app->redirect(
-                $app->path('login')
-            );
-        }
+        return $app['twig']->render('account/index.html.twig');
     }
 
     public function accountLogin(Request $request, Application $app)
@@ -73,6 +67,8 @@ class Account extends BaseController {
     {
         $app['meli.authentication_service']->logoutUser();
 
-        return $app->redirect($app->path('login'));
+        return $app->redirect(
+            $app->path('account_dashboard')
+        );
     }
 }
