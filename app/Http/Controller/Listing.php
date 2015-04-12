@@ -31,6 +31,7 @@ class Listing extends BaseController
 
         $params = [
             'access_token' => $access_token,
+            'status' => 'active',
             'attributes'   => 'results,paging',
         ];
         if (!empty($query)) {
