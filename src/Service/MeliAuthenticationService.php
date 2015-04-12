@@ -18,17 +18,44 @@ class MeliAuthenticationService
 {
     protected $db;
     protected $meli;
+    protected $session;
     protected $redirect_uri;
     protected $access_token;
 
     public function __construct(
         Meli $meli,
         Connection $db,
+        $session,
         $redirect_uri = null
     ) {
         $this->db           = $db;
         $this->meli         = $meli;
+        $this->session      = $session;
         $this->redirect_uri = $redirect_uri;
+    }
+
+    public function hasActiveSession()
+    {
+        return $this->session->has('meli_user');
+    }
+
+    public function getCurrentUser()
+    {
+        return $this->session->get('meli_user');
+    }
+
+    public function loginUser($user_id)
+    {
+        $meli_user = $this->getUserById($user_id);
+
+        if ($meli_user) {
+            $this->session->set('meli_user', $meli_user);
+        }
+    }
+
+    public function logoutUser()
+    {
+        $this->session->invalidate();
     }
 
     public function getAuthUrl()

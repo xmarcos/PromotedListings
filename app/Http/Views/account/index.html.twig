@@ -5,7 +5,7 @@
 {% block content %}
     Account Page:
     <br/>
-    {% if is_user %}
+    {% if app['meli.authentication_service'].hasActiveSession() %}
         <a href="{{ path('listing') }}">Mis publicaciones</a>
     {% else %}
         <a href="{{ path('login') }}">Logeate con MercadoLibre</a>
