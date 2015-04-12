@@ -22,7 +22,7 @@ class Listing extends BaseController {
     {
         $user         = $app['meli.authentication_service']->getCurrentUser();
         $access_token = $user->get('access_token');
-
+        
         $app['meli.api']->setAccessToken($access_token);
 
         $path  = sprintf('/users/%s/items/search', $user->get('user_id'));
@@ -30,9 +30,9 @@ class Listing extends BaseController {
 
         $params = [
             'access_token' => $access_token,
+            'status' => 'active',
             'attributes'   => 'results,paging'
         ];
-
         if (!empty($query)) {
             $params['q'] = $query;
         }
@@ -55,12 +55,12 @@ class Listing extends BaseController {
             [
                 'access_token' => $access_token,
                 'ids'          => $items_ids_str,
-                'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id'
+                'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id,status'
             ]
         );
 
         $items = $items_response['body'];
-
+        
         return $app['twig']->render(
             'listing/index.html.twig',
             [
