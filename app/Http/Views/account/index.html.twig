@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Ingresar</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css">
-    </head>
-    <body style="background-color: graytext;">
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Promoted Listings</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-            </div><!-- /.container-fluid -->
-        </nav><!-- /.END NAVBAR -->
-        <div class="row">
-            <div class="col-lg-offset-2 col-lg-8">
-                {% block content %}
-                    <a class="ch-btn ch-btn-large" href="{{ app.path('login')}}" role="button" style="color: white;">Ingresar</a>
-                {% endblock %}
-                </div>
-            </div>
-            <script src="http://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-            <script src="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.js"></script>
-        </body>
-    </html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Promoted Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<style type="text/css">
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600');
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.vert {
+    vertical-align: middle;
+    width:100%;
+    padding-top:5%;
+}
+
+.header h1 {
+    font-size:80px;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+    color:#2D3277;
+    /*margin-left:-5px;*/
+    margin-bottom:12px;
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.header .lead {
+    color:#333;
+    font-size:25px;
+}
+
+.header {
+    height: 100%;
+    background: #FFE600 url('http://www.bootply.com/assets/example/pt_squares_lg.png') repeat center center fixed;
+}
+
+</style>
+</head>
+<body>
+<div class="header vert">
+    <div class="container">
+        <h1>Promoted Listings</h1>
+        <p class="lead">Ingresá con tu cuenta de MercadoLibre</p>
+        <div>&nbsp;</div>
+        <a href="{{ app.path('login') }}" class="meli-connect">
+            <img src="/i/meli-connect.png">
+        </a>
+    </div>
+</div>
+</body>
+</html>
