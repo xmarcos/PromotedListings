@@ -78,8 +78,10 @@ hr {
 
 
 .navbar{
+    color:#2D3277;
     background: #FFE600 url('http://www.bootply.com/assets/example/pt_squares_lg.png') repeat center center fixed;
 }
+
 
 .error-message{
   color: #DC7B1C;
