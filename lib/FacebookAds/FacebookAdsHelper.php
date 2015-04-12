@@ -56,7 +56,6 @@ class FacebookAdsHelper {
 				
 		return $account->read($fields)->getData();
 	}
-	
 
 	
 	public static function createAdCampaign($data) {	
@@ -69,7 +68,6 @@ class FacebookAdsHelper {
 		
 		return $campaign;		
 	}
-	
 	
 	
 	public static function createAdset($data) {
@@ -140,7 +138,6 @@ class FacebookAdsHelper {
 	}
 	
 	
-	
 	public static function deleteAdCampaign($id) {
         $campaign = new AdCampaign($id);
         $campaign->delete();
@@ -157,7 +154,6 @@ class FacebookAdsHelper {
 		}
         return false;
 	}
-	
 
 	
 }
