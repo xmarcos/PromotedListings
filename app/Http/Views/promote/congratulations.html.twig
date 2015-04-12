@@ -3,5 +3,11 @@
 {% block title %}Resultado{% endblock %}
 
 {% block content %}
-{{status}}
+    {{status}}
+    {% if status %}
+        <p>Felicitaciones se publicó con éxito</p>
+    {% else %}
+        <p>Ups! Ocurrio un error y no se pudo publicar</p>
+    {% endif %}
+
 {% endblock %}
