@@ -26,7 +26,7 @@ class Settings extends BaseController
 
         $controllers->get('/', [$this, 'settingsIndex']);
         $controllers->get('/facebook/connect', [$this, 'facebookConnect']);
-        // $controllers->get('/facebook/callback', [$this, 'facebookCallback']);
+        $controllers->get('/facebook/callback', [$this, 'facebookCallback']);
         $controllers->get('/facebook/accounts', [$this, 'facebookAccounts']);
 
         return $controllers;
@@ -48,120 +48,52 @@ class Settings extends BaseController
         die();
     }
 
-    // public function facebookCallback(Request $request, Application $app)
-    // {
-    //     $success       = false;
-    //     $error_message = '';
-    //     $access_token  = null;
+    public function facebookConnect(Request $request, Application $app)
+    {
+        return new RedirectResponse(
+            $app['facebook.login_helper']->getLoginUrl(
+                $app->config()->get('credentials.facebook_app.scope', [])
+            )
+        );
+    }
 
-    //     try {
-    //         $session = $app['facebook.login_helper']->getSessionFromRedirect();
-    //         if ($session instanceof FacebookSession) {
-    //             $access_token = $session->getAccessToken();
-    //             if (!$access_token->isLongLived()) {
-    //                 $access_token = $access_token->extend();
-    //             }
+    public function facebookCallback(Request $request, Application $app)
+    {
+        $success       = false;
+        $error_message = '';
+        $access_token  = null;
 
-    //             $success = $app['facebook.ad_service']->saveAccessToken($access_token, 1);
-    //         } else {
-    //             $error_message = "Error while connection to Facebook, please try again later.";
-    //         }
-    //     } catch (FacebookRequestException $e) {
-    //         $error_message = $e->getMessage();
-    //     } catch (Exception $e) {
-    //         $error_message = $e->getMessage();
-    //     }
-    // }
+        try {
+            $session = $app['facebook.login_helper']->getSessionFromRedirect();
+            if ($session instanceof FacebookSession) {
+                $access_token = $session->getAccessToken();
+                if (!$access_token->isLongLived()) {
+                    $access_token = $access_token->extend();
+                }
 
-    // public function facebookCallback(Request $request, Application $app)
-    // {
-    //     $success       = false;
-    //     $error_message = '';
-    //     $access_token  = null;
+                $meli_user = $app['meli.authentication_service']->getCurrentUser();
+                $success   = $app['facebook.ad_service']->saveAccessToken(
+                    $access_token,
+                    $meli_user->get('user_id')
+                );
+            } else {
+                $error_message = "Error while connection to Facebook, please try again later.";
+            }
+        } catch (FacebookRequestException $e) {
+            $error_message = $e->getMessage();
+        } catch (Exception $e) {
+            $error_message = $e->getMessage();
+        }
 
-    //     try {
-    //         $session = $app['facebook.login_helper']->getSessionFromRedirect();
-    //         if ($session instanceof FacebookSession) {
-    //             $access_token = $session->getAccessToken();
-    //             if (!$access_token->isLongLived()) {
-    //                 $access_token = $access_token->extend();
-    //             }
+        if (!$error && $access_token instanceof AccessToken) {
+            $app['facebook.ad_service']->setAccessToken($access_token);
+            $accounts = $app['facebook.ad_service']->getActiveAccounts();
+            dump($accounts);
+        } else {
+            dump($error);
+        }
 
-    //             $success = $app['facebook.ad_service']->saveAccessToken($access_token, 1);
-    //         } else {
-    //             $error_message = "Error while connection to Facebook, please try again later.";
-    //         }
-    //     } catch (FacebookRequestException $e) {
-    //         $error_message = $e->getMessage();
-    //     } catch (Exception $e) {
-    //         $error_message = $e->getMessage();
-    //     }
-
-    //     if (!$error && $access_token instanceof AccessToken) {
-
-    //         $app['facebook.ad_service']->setAccessToken($access_token);
-
-    //         $accounts = $app['facebook.ad_service']->getActiveAccounts();
-
-    //         dump($accounts);
-    //     } else {
-    //         dump($error);
-    //     }
-
-
-    //         // if (is_array($ad_accounts)) {
-    //         //     $i = 0;
-    //         //     foreach ($ad_accounts as $account) {
-    //         //         try {
-    //         //             $exists = $app['repository.fb.ad_account']->getByAdAccount($account);
-    //         //             // check if we have an account on that id connected to another customer
-    //         //             if (!is_null($exists) && $exists->getCustomerId() !== $app['account']->get('customer')->getId()) {
-    //         //                 $app['session']->getFlashBag()->add(
-    //         //                     'error',
-    //         //                     sprintf(
-    //         //                         'Ad Account %s (%s) is already connected to another Customer.',
-    //         //                         $account->getName(),
-    //         //                         $account->getId()
-    //         //                     )
-    //         //                 );
-    //         //             } else {
-    //         //                 $account->setCustomerId($app['account']->get('customer')->getId());
-    //         //                 $account->setCanUpload($ad_service->canUploadToAccount($account));
-    //         //                 $account->setEnabled($i === 0);
-    //         //                 $save = $app['repository.fb.ad_account']->upsert($account);
-    //         //                 if ($save) {
-    //         //                     $i++;
-    //         //                     $app['session']->getFlashBag()->add(
-    //         //                         'success',
-    //         //                         sprintf('Ad Account Connected - %s (%s)', $account->getName(), $account->getId())
-    //         //                     );
-    //         //                 }
-    //         //             }
-    //         //         } catch (Exception $e) {
-    //         //             $msg = $app['debug'] ? sprintf('%s - %s', get_class($e), $e->getMessage()) : 'Internal Error';
-    //         //             $app['session']->getFlashBag()->add('error', $msg);
-    //         //         }
-    //         //     }
-    //         // } else {
-    //         //     $app['session']->getFlashBag()->add(
-    //         //         'error',
-    //         //         sprintf('No active Ad Account was found')
-    //         //     );
-    //         // }
-    //     // }
-
-    //     // if ($error) {
-    //     //     $app['session']->getFlashBag()->add(
-    //     //         'error',
-    //     //         'The Application was not Authorized. Try again.'
-    //     //     );
-    //     // }
-
-    //     // return $app->redirect(
-    //     //     $app->path('account_dashboard')
-    //     // );
-
-
-    //     dump($request);
-    //     die();
+        dump($request);
+        die();
+    }
 }
