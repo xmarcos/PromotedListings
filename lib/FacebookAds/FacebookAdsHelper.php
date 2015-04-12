@@ -44,18 +44,20 @@ class FacebookAdsHelper {
         return $access_token;   
     }
 	
-	public static function getAccountData($account_id) {
+	public static function getAccountData() {
 	    $fields = array(
             AdAccountFields::ID,
             AdAccountFields::NAME,
+			AdAccountFields::CURRENCY,
+			AdAccountFields::BALANCE,
             AdAccountFields::DAILY_SPEND_LIMIT
         );
-		$account = new AdAccount($account_id);
+		$account = new AdAccount(self::$account_id);
 				
 		return $account->read($fields)->getData();
 	}
-		
 	
+
 	
 	public static function createAdCampaign($data) {	
 	    $campaign = new AdCampaign(null, self::$account_id); 	    
@@ -106,7 +108,6 @@ class FacebookAdsHelper {
 	
 
 	public static function createAdGroup($data) {
-	    
 	    $creative = new AdCreative(null, self::$account_id);
 		try {
 		    $creative->create(array(
@@ -136,6 +137,25 @@ class FacebookAdsHelper {
 		}
 		
 		return $ad;
+	}
+	
+	
+	
+	public static function deleteAdCampaign($id) {
+        $campaign = new AdCampaign($id);
+        $campaign->delete();
+    }
+	
+	
+	public static function getAdCampaignStats($id) {
+	    $callUrl  = "https://graph.facebook.com/v2.3/$id/stats";
+		$callUrl .= '?fields=impressions,clicks,spent&access_token=' . self::getAccessToken();
+		
+		$stats = json_decode(file_get_contents($callUrl), true);
+		if(array_key_exists('data',$stats)) {
+		    return $stats['data'][0];
+		}
+        return false;
 	}
 	
 
