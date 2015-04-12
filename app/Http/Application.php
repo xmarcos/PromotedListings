@@ -59,8 +59,7 @@ class Application extends Silex\Application
     protected function loginHook()
     {
         $this->before(
-            function (Request $request, Application $app)
-            {
+            function (Request $request, Application $app) {
                 $has_session       = $app['meli.authentication_service']->hasActiveSession();
                 $current_route     = $request->get('_route');
                 $account_routes    = ['login'];
@@ -82,6 +81,7 @@ class Application extends Silex\Application
                         'redirect_url',
                         $app->path($current_route)
                     );
+
                     return $app->redirect(
                         $app->path($account_dashboard)
                     );

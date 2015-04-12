@@ -4,9 +4,7 @@ namespace PromotedListings\Http\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Facebook\FacebookSession;
-use FacebookAds\Api;
 use Facebook\Entities\AccessToken;
 
 function jlog($data)
@@ -41,7 +39,7 @@ class Settings extends BaseController
 
     public function facebookAccounts(Request $request, Application $app)
     {
-        $access_token = new AccessToken("CAAWR4iINZACIBAIbwZCxtcFzvghAqntIZA3E2pssJ5zHz2tnshKCPrQjJZBrUEejipn5x2kfsYQnSqeYcBTUBAkv5EFH6II4RwnVapAbyTO5kTHZAmq0jTezNYk6LvZCzsJ9wJHRf1oyYCpaB3vzFRSrjEuqf0CPkyPuqW6zeIvbSXjL8q8isfjoZBAtn9xSONBYjG7jZAhB2ilN310ddXnUj0OPHVp989o4hYk6muJf3wZDZD");
+        $access_token = new AccessToken('CAAWR4iINZACIBAIbwZCxtcFzvghAqntIZA3E2pssJ5zHz2tnshKCPrQjJZBrUEejipn5x2kfsYQnSqeYcBTUBAkv5EFH6II4RwnVapAbyTO5kTHZAmq0jTezNYk6LvZCzsJ9wJHRf1oyYCpaB3vzFRSrjEuqf0CPkyPuqW6zeIvbSXjL8q8isfjoZBAtn9xSONBYjG7jZAhB2ilN310ddXnUj0OPHVp989o4hYk6muJf3wZDZD');
 
         $app['facebook.ad_service']->setAccessToken($access_token);
 
@@ -166,5 +164,4 @@ class Settings extends BaseController
 
     //     dump($request);
     //     die();
-
 }

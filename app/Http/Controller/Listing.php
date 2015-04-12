@@ -5,8 +5,8 @@ namespace PromotedListings\Http\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class Listing extends BaseController {
-
+class Listing extends BaseController
+{
     public function connect(Application $app)
     {
         $this->app = $app;
@@ -31,7 +31,7 @@ class Listing extends BaseController {
 
         $params = [
             'access_token' => $access_token,
-            'attributes'   => 'results,paging'
+            'attributes'   => 'results,paging',
         ];
 
         if (!empty($query)) {
@@ -40,7 +40,7 @@ class Listing extends BaseController {
 
         $search_response = $app['meli.api']->get($path, $params);
         $items_ids       = $search_response['body']->results;
-        $items_ids_str   = implode(',',$items_ids);
+        $items_ids_str   = implode(',', $items_ids);
         $total_items     = $search_response['body']->paging->total;
         $message         = '';
 
@@ -56,7 +56,7 @@ class Listing extends BaseController {
             [
                 'access_token' => $access_token,
                 'ids'          => $items_ids_str,
-                'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id'
+                'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id',
             ]
         );
 
@@ -67,7 +67,7 @@ class Listing extends BaseController {
             [
                 'items' => $items,
                 'total_items' => $total_items,
-                'message' => $message
+                'message' => $message,
             ]
         );
     }
@@ -85,7 +85,7 @@ class Listing extends BaseController {
                 sprintf('items/%s', $item_id),
                 [
                     'access_token' => $access_token,
-                    'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id'
+                    'attributes'   => 'id,title,subtitle,thumbnail,base_price,currency_id',
                 ]
             );
             $item = $item_response['body'];
@@ -93,7 +93,7 @@ class Listing extends BaseController {
             return $app['twig']->render(
                 'listing/item_detail.html.twig',
                 [
-                    'item' => $item
+                    'item' => $item,
                 ]
             );
         }

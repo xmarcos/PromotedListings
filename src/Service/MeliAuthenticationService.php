@@ -7,12 +7,7 @@ use Meli;
 use DateTime;
 use Exception;
 use Doctrine\DBAL\Connection;
-use Facebook\Entities\AccessToken;
-use FacebookAds\Api;
-use FacebookAds\Object\AdUser;
-use FacebookAds\Object\Fields\AdAccountFields;
 use xmarcos\Dot\Container as DotContainer;
-use PromotedListings\Utils;
 
 class MeliAuthenticationService
 {
@@ -78,7 +73,7 @@ class MeliAuthenticationService
 
     public function getUserInfoFromAccessToken(DotContainer $access_token)
     {
-        $response = $this->meli->get('/users/' . $access_token->get('user_id'));
+        $response = $this->meli->get('/users/'.$access_token->get('user_id'));
 
         return $this->getDataFromResponse($response);
     }

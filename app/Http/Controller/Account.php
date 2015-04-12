@@ -7,9 +7,10 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class Account extends BaseController {
-
-    public function connect(Application $app) {
+class Account extends BaseController
+{
+    public function connect(Application $app)
+    {
         $this->app = $app;
         $controllers = $app['controllers_factory'];
 
@@ -54,7 +55,6 @@ class Account extends BaseController {
                         : $app->path('account_dashboard');
 
                     return $app->redirect($redirect);
-
                 } else {
                     die('Unable to save user(?)');
                 }
