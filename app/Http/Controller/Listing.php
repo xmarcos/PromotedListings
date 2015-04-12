@@ -42,6 +42,7 @@ class Listing extends BaseController {
         $items_ids = $search_response['body']->results;
         $items_ids_str = implode(',',$items_ids);
         $total_items = $search_response['body']->paging->total;
+        $message = '';
         if($total_items == 0) {
             if(empty($params['q']))
                 $message = 'no existen articulos en su cuenta';
