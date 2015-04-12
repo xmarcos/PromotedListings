@@ -30,9 +30,8 @@ class Promote extends BaseController {
     }
 
     public function promoteFacebookPages(Request $request, Application $app) {
+        $item_id = $request->get('item_id');
         if ($app['facebook.api_service']->getAccessToken()) {
-            $item_id = $request->get('item_id');
-
             if ($request->get('page_id')) {
                 $page_id = $request->get('page_id');
                 $item = (array) $this->getItem($app, $item_id);
@@ -52,6 +51,8 @@ class Promote extends BaseController {
                 return $app['twig']->render('promote/facebook/pages.html.twig', array('pages' => $pages, 'item_id' => $item_id));
             }
         } else {
+            $_SESSION['redirect_login'] = $app->path('facebook_connect',array('item_id' => $item_id));
+            
             return $app->redirect(
                             $app->path('facebook_connect')
             );
