@@ -11,7 +11,7 @@ return [
                 'user'     => 'root',
                 'password' => 'root',
                 'charset'  => 'utf8',
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];
