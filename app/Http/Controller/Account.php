@@ -65,9 +65,7 @@ class Account extends BaseController
                         // We should display message error.
                     }
                 }
-                
-                $_SESSION['access_token'] = $meli_account['access_token'];
-                $_SESSION['user_id'] = $meli_account['user_id'];
+                $_SESSION['meli_account'] = $meli_account;
 
                 return $app->redirect($app->path('account_dashboard'));
             }
