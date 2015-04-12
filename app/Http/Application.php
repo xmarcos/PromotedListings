@@ -76,6 +76,14 @@ class Application extends Silex\Application
                     );
                 }
 
+                if ($has_session) {
+                    // $user         = $app['meli.authentication_service']->getCurrentUser();
+                    // $access_token = $app['facebook.ad_service']->getAccessTokenByMeliUserId(
+                    //     $user->get('user_id')
+                    // );
+                    // $ad_accounts = $app['facebook.ad_service']->getActiveAccounts();
+                }
+
                 if (!$has_session && !$is_account_route) {
                     $this['session']->set(
                         'redirect_url',
@@ -167,7 +175,11 @@ class Application extends Silex\Application
 
     protected function registerRoutes()
     {
-        $this->mount('/', new Controller\Home());
+        $this->get('/', function(Request $request, Application $app) {
+            return $app->redirect(
+                $app->path('account_dashboard')
+            );
+        });
         $this->mount('/account', new Controller\Account()); // Login Meli
         $this->mount('/listing', new Controller\Listing()); // Productos Meli
         $this->mount('/promote', new Controller\Promote()); // Facebook Account Link

@@ -76,8 +76,14 @@ class FacebookAdsService
         $sql = 'SELECT * FROM facebook_access_token WHERE meli_user_id = :meli_user_id LIMIT 1';
         $q = $this->db->prepare($sql);
         $q->bindValue(':meli_user_id', $meli_user_id);
+        $q->execute();
 
-        return $q->execute()->fetch(PDO::FETCH_ASSOC);
+        $token = $q->fetch(PDO::FETCH_ASSOC);
+
+        return empty($token) ? null : new AccessToken(
+            $token['access_token'],
+            $token['expires']
+        );
     }
 
     public function getActiveAccounts()
