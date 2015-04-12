@@ -3,8 +3,6 @@
 namespace PromotedListings\Http\Controller;
 
 use Silex\Application;
-use FacebookSDKException;
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -12,8 +10,8 @@ function jlog($data)
 {
     $data = is_object($data) ? get_object_vars($data) : $data;
     file_put_contents(
-        __DIR__ . '/log.json',
-        json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL,
+        __DIR__.'/log.json',
+        json_encode($data, JSON_PRETTY_PRINT).PHP_EOL,
         FILE_APPEND
     );
 }
@@ -59,18 +57,17 @@ class Settings extends BaseController
                 $token = $session->getAccessToken();
                 if (!$token->isLongLived()) {
                     $token = $token->extend();
+                    $res = $app['facebook.ad_service']->saveAccessToken($token, 1);
                 }
-                jlog($token);
+                dump($token);
+                dump($res);
             }
         } catch (FacebookRequestException $e) {
-            jlog($e->getMessage());
+            dump($e->getMessage());
         } catch (Exception $e) {
-            jlog($e->getMessage());
+            dump($e->getMessage());
         }
         dump($request);
         die();
     }
-
 }
-
-
