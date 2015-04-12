@@ -36,7 +36,7 @@ body {
 
 }
 .singleListProd {
-    border:1PX solid black;
+    border:1PX solid #eee;
     padding: 1em;
     margin: 0.5em;
 }
@@ -51,12 +51,12 @@ hr {
 }
 .descripcionProd {
     margin-top: 5em;
-    border: 1px solid black;
+    border: 1px solid #eee;
     padding: 1em;
 
 }
 .singleProd {
-    border: 1px solid black;
+    border: 1px solid #eee;
     border-radius: 5px;
     padding: 2em;
 }
