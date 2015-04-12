@@ -24,7 +24,7 @@ class Promote extends BaseController {
         return $app['twig']->render('promote/index.html.twig');
     }
 
-    public function promoteFacebookAds(Request $request, Application $app) {
+    /*public function promoteFacebookAds(Request $request, Application $app) {
         return $app['twig']->render('promote/facebook/ads.html.twig');
     }
 
@@ -74,6 +74,6 @@ class Promote extends BaseController {
             $groups = $request->execute()->getGraphObject()->asArray()['data'];
             return $app['twig']->render('promote/facebook/groups.html.twig', array('groups' => $groups));
         }
-    }
+    }*/
 
 }
