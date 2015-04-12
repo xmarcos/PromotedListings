@@ -5,7 +5,7 @@
 .inputLogin {
     padding: 1em;
 }
-/*fin index*/   
+/*fin index*/
 
 /*inicio login*/
 .MainCont {
@@ -60,17 +60,31 @@ hr {
     border-radius: 5px;
     padding: 2em;
 }
-/*fin product*/ 
+/*fin product*/
 
-/*comienzo singleProduct*/ 
+/*comienzo singleProduct*/
 .buttonsList a {
     display: block;
     margin: 1em;
 }
 .singleListProd {
-    padding: 4em 2em;   
+    padding: 4em 2em;
 }
 .description {
     padding-bottom: 5em;
 }
-/*fin singleProduct*/ 
+/*fin singleProduct*/
+
+
+
+.navbar{
+    background: #FFE600 url('http://www.bootply.com/assets/example/pt_squares_lg.png') repeat center center fixed;
+}
+
+.error-message{
+  color: #DC7B1C;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0 0 0 5px;
+}

@@ -38,7 +38,6 @@ class FacebookAdsHelper {
 	    self::$account_id = $account_id;
 	}
 	
-	
 	public static function getAccessToken() {
 		$access_token = self::$instance->getSession()->getAccessToken();	
         return $access_token;   
@@ -50,13 +49,14 @@ class FacebookAdsHelper {
             AdAccountFields::NAME,
 			AdAccountFields::CURRENCY,
 			AdAccountFields::BALANCE,
-            AdAccountFields::DAILY_SPEND_LIMIT
+            AdAccountFields::DAILY_SPEND_LIMIT,
+			AdAccountFields::FUNDING_SOURCE
         );
 		$account = new AdAccount(self::$account_id);
 				
 		return $account->read($fields)->getData();
 	}
-
+	
 	
 	public static function createAdCampaign($data) {	
 	    $campaign = new AdCampaign(null, self::$account_id); 	    
@@ -75,19 +75,19 @@ class FacebookAdsHelper {
             AdSetFields::NAME     => $data['name'],
             AdSetFields::BID_TYPE => 'CPC',
             AdSetFields::BID_INFO => array(
-                    'CLICKS' => 500,
-                ),
+                'CLICKS' => 500,
+            ),
             AdSetFields::CAMPAIGN_STATUS    => 'PAUSED',
-            AdSetFields::LIFETIME_BUDGET    => $data['inversion'],
+            AdSetFields::LIFETIME_BUDGET    => '1000', //$data['inversion'],
             AdSetFields::START_TIME         => $data['start_time'],
             AdSetFields::END_TIME           => $data['end_time'],
             AdSetFields::CAMPAIGN_GROUP_ID  => $data['campaign_id'],          
             AdSetFields::TARGETING          => array(
                     'genders' => array(1,2),
                     'age_min' => '18',
-                    'age_max' => '40',
+                    'age_max' => '35',
                     'geo_locations' => array(
-                        'countries' => array('US','GB',),
+                        'countries' => array('US','GB'),
                     ),
                     'page_types' => array('rightcolumn')
             )
@@ -115,7 +115,7 @@ class FacebookAdsHelper {
 				AdCreativeFields::IMAGE_URL  => $data['img_url'],
             ));	
 		} catch(Exception $e) {
-		    echo $e->getMessage();
+		    return $e->getMessage();
 		}  
 			
 	    $fields = array(
@@ -131,7 +131,7 @@ class FacebookAdsHelper {
 		    $ad = new AdGroup(null, self::$account_id);
             $ad->create($fields);
 		} catch(Exception $e) {
-		    echo $e->getMessage();
+		    return $e->getMessage();
 		}
 		
 		return $ad;
