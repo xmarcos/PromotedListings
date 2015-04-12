@@ -40,13 +40,12 @@ class Listing extends BaseController {
         //Request
         $search_response = $meli->get($path, $params);
         $items_ids = $search_response['body']->results;
-        $items_ids_str = implode($items_ids);
+        $items_ids_str = implode(',',$items_ids);
         $total_items = $search_response['body']->paging->total;
-
+        
         //Get basic info of my own
         $items_response = $meli->get('items', array('access_token' => $access_token, 'ids' => $items_ids_str, 'attributes' => 'id,title,subtitle,thumbnail,base_price,currency_id'));
         $items = $items_response['body'];
-
         return $app['twig']->render('listing/index.html.twig', array('items' => $items, 'total_items' => $total_items));
     }
 
@@ -65,5 +64,5 @@ class Listing extends BaseController {
             return $app['twig']->render('listing/item_detail.html.twig', array('item' => $item));
         }
     }
-
+   
 }
