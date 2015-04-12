@@ -26,6 +26,8 @@ class Application extends Silex\Application
         $this->setupFacebookServices();
         $this->registerProviders();
         $this->registerRoutes();
+
+        $this->loginHook();
     }
 
     public function config()
@@ -54,7 +56,39 @@ class Application extends Silex\Application
         $this['debug'] = $this->config->get('debug');
     }
 
+    protected function loginHook()
+    {
+        $this->before(
+            function (Request $request, Application $app) {
+                $has_session       = $app['meli.authentication_service']->hasActiveSession();
+                $current_route     = $request->get('_route');
+                $account_routes    = ['login'];
+                $is_account_route  = in_array($current_route, $account_routes);
+                $account_dashboard = 'account_dashboard';
 
+                if ($account_dashboard == $current_route) {
+                    return;
+                }
+
+                if ($has_session && $is_account_route) {
+                    return $app->redirect(
+                        $app->path($account_dashboard)
+                    );
+                }
+
+                if (!$has_session && !$is_account_route) {
+                    $this['session']->set(
+                        'redirect_url',
+                        $app->path($current_route)
+                    );
+
+                    return $app->redirect(
+                        $app->path($account_dashboard)
+                    );
+                }
+            }
+        );
+    }
 
     protected function setupFacebookServices()
     {
