@@ -88,6 +88,7 @@ class Settings extends BaseController
 
         if ($success && $access_token instanceof AccessToken) {
             $app['facebook.ad_service']->setAccessToken($access_token);
+            $app['facebook.api_service']->setAccessToken($access_token);
             $accounts = $app['facebook.ad_service']->getActiveAccounts();
             dump($accounts);
         } else {

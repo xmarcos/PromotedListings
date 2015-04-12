@@ -1,7 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Service!{% endblock %}
+{% block title %}Grupos{% endblock %}
 
 {% block content %}
-Service Page
+    {% for group in groups %}
+        <a href="{{ path('promote_groups', {group_id: group.id}) }}">{{group.name}}</a>
+        <hr>
+    {% endfor %}
 {% endblock %}
