@@ -33,15 +33,16 @@ class FacebookAdsHelper {
 	    //instanceof FacebookAds\Api
 	    self::$instance = $adsApiInstance;
 	}
-
-	public static function getAccessToken() {
-		$access_token = self::$instance->getSession()->getAccessToken();	
-        return $access_token;   
-    }
 	
 	public static function setAccountId($account_id) {
 	    self::$account_id = $account_id;
 	}
+	
+	
+	public static function getAccessToken() {
+		$access_token = self::$instance->getSession()->getAccessToken();	
+        return $access_token;   
+    }
 	
 	public static function getAccountData($account_id) {
 	    $fields = array(
@@ -56,9 +57,7 @@ class FacebookAdsHelper {
 		
 	
 	
-	
-	public static function createAdCampaign($data) {
-	
+	public static function createAdCampaign($data) {	
 	    $campaign = new AdCampaign(null, self::$account_id); 	    
 		$campaign->create(array(
             AdCampaignFields::NAME      => $data['name'],
@@ -72,7 +71,6 @@ class FacebookAdsHelper {
 	
 	
 	public static function createAdset($data) {
-
 	    $params = array(
             AdSetFields::NAME     => $data['name'],
             AdSetFields::BID_TYPE => 'CPC',
@@ -130,9 +128,12 @@ class FacebookAdsHelper {
             ),
         );
 		
-		
-		$ad = new AdGroup(null, self::$account_id);
-        $ad->create($fields);
+		try {
+		    $ad = new AdGroup(null, self::$account_id);
+            $ad->create($fields);
+		} catch(Exception $e) {
+		    echo $e->getMessage();
+		}
 		
 		return $ad;
 	}
