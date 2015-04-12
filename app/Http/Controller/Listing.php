@@ -12,7 +12,7 @@ class Listing extends BaseController {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'listingIndex'])->bind('listing');
-        $controllers->get('/search/{q}', [$this, 'listingIndex']);
+        $controllers->get('/search', [$this, 'listingIndex'])->bind('listing_search');
         $controllers->get('/item/{item_id}', [$this, 'listingItem'])->bind('item');
 
         return $controllers;
@@ -42,11 +42,16 @@ class Listing extends BaseController {
         $items_ids = $search_response['body']->results;
         $items_ids_str = implode(',',$items_ids);
         $total_items = $search_response['body']->paging->total;
-        
+        $message = '';
+        if($total_items == 0) {
+            if(empty($params['q']))
+                $message = 'no existen articulos en su cuenta';
+                $message = 'no existen articulos con la siguiente busqueda: '.$params['q'];
+        }
         //Get basic info of my own
         $items_response = $meli->get('items', array('access_token' => $access_token, 'ids' => $items_ids_str, 'attributes' => 'id,title,subtitle,thumbnail,base_price,currency_id'));
         $items = $items_response['body'];
-        return $app['twig']->render('listing/index.html.twig', array('items' => $items, 'total_items' => $total_items));
+        return $app['twig']->render('listing/index.html.twig', array('items' => $items, 'total_items' => $total_items, 'message' => $message));
     }
 
     public function listingItem(Request $request, Application $app) {
