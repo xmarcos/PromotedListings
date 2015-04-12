@@ -28,7 +28,7 @@ CREATE TABLE `meli_account` (
   `country_id` char(2) DEFAULT NULL,
   `site_id` char(3) DEFAULT NULL,
   `data` text,
-  `updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   KEY `country_id` (`country_id`),
   KEY `site_id` (`site_id`)

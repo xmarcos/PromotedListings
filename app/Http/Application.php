@@ -2,12 +2,14 @@
 
 namespace PromotedListings\Http;
 
+use Meli;
 use Silex;
 use xmarcos\Dot\Container as DotContainer;
 use Symfony\Component\HttpFoundation\Request;
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 use PromotedListings\Service\FacebookAdsService;
+use PromotedListings\Service\MeliAuthenticationService;
 
 class Application extends Silex\Application
 {
@@ -52,6 +54,8 @@ class Application extends Silex\Application
         $this['debug'] = $this->config->get('debug');
     }
 
+
+
     protected function setupFacebookServices()
     {
         //Hack to ensure Facebook has a session
@@ -76,19 +80,13 @@ class Application extends Silex\Application
             }
         );
 
-        $this['facebook.login_helper'] = $this->share(
-            function (Application $app) {
-                return new FacebookRedirectLoginHelper(
-                    $app->config()->get('credentials.facebook_app.redirect_url'),
-                    $app->config()->get('credentials.facebook_app.app_id'),
-                    $app->config()->get('credentials.facebook_app.app_secret')
-                );
-            }
-        );
-
         $this['facebook.ad_service'] = $this->share(
             function (Application $app) {
-                return new FacebookAdsService($app['db']);
+                return new FacebookAdsService(
+                    $app->config()->get('credentials.facebook_app.app_id'),
+                    $app->config()->get('credentials.facebook_app.app_secret'),
+                    $app['db']
+                );
             }
         );
     }
@@ -97,7 +95,7 @@ class Application extends Silex\Application
     {
         $this->register(new Silex\Provider\ServiceControllerServiceProvider());
         $this->register(new Silex\Provider\TwigServiceProvider(), [
-            'debug' => $this['debug'],
+            'debug'            => $this['debug'],
             'strict_variables' => $this['debug'],
         ]);
         $this->extend('twig', function ($twig, Application $app) {
@@ -106,11 +104,31 @@ class Application extends Silex\Application
             return $twig;
         });
         $this->register(
-                new Silex\Provider\DoctrineServiceProvider(), $this->config()->get('doctrine')
+            new Silex\Provider\DoctrineServiceProvider(),
+            $this->config()->get('doctrine')
         );
         $this->register(new Silex\Provider\SessionServiceProvider());
-
         $this->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+        $this['meli.api'] = $this->share(
+            function (Application $app) {
+                return new Meli(
+                    $app->config()->get('credentials.meli_app.app_id'),
+                    $app->config()->get('credentials.meli_app.app_secret')
+                );
+            }
+        );
+
+        $this['meli.authentication_service'] = $this->share(
+            function (Application $app) {
+                return new MeliAuthenticationService(
+                    $app['meli.api'],
+                    $app['db'],
+                    $app['session'],
+                    $app->config()->get('credentials.meli_app.app_url')
+                );
+            }
+        );
     }
 
     protected function registerRoutes()

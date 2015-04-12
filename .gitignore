@@ -2,3 +2,4 @@ log.json
 data/
 vendor/
 app/config/credentials.php
+app/config/app.php

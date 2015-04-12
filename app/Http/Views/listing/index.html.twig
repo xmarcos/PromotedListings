@@ -3,71 +3,26 @@
 {% block title %}Listing!{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-12 singleListProd">
-        <div class="text-center col-lg-3">
-            <a href="#"><img src="img/faro.jpg" class="text-center imgList"></a>
-        </div>
-        <div class="col-lg-5 tituloList">
-            <a class="text-center"><h5>Faro de la luz loca que da luz todos los dias</h5></a>
-        </div>
-        <div class="col-lg-4 text-center buttonsList">
-            <h3>$56.55</h3>
-            <a href="#" class="btn btn-primary">Informacion</a>
-        </div>
+    Total de Items: {{total_items}}
+    <div class="row">
+        {% if message %}
+            {{ message }}
+        {% else %}
+            {% for item in items %}
+            <div class="col-lg-12 singleListProd">
+                <div class="text-center col-lg-3">
+                    <a href="#"><img src="{{ item.thumbnail }}" class="text-center imgList"></a>
+                </div>
+                <div class="col-lg-5 tituloList">
+                    <a class="text-center"><h5>{{ item.title }}</h5></a>
+                </div>
+                <div class="col-lg-4 text-center buttonsList">
+                    <h3>{{item.currency_id}}{{ item.base_price }}</h3>
+                    <a href="{{ path('item', {item_id: item.id}) }}" class="btn btn-primary">Informacion</a>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        {% endif %}
     </div>
-    <hr>
-    <div class="col-lg-12 singleListProd">
-        <div class="text-center col-lg-3">
-            <a href="#"><img src="img/faro.jpg" class="text-center imgList"></a>
-        </div>
-        <div class="col-lg-5 tituloList">
-            <a class="text-center"><h5>Faro de la luz loca que da luz todos los dias</h5></a>
-        </div>
-        <div class="col-lg-4 text-center buttonsList">
-            <h3>$56.55</h3>
-            <a href="#" class="btn btn-primary">Informacion</a>
-        </div>
-    </div>
-    <hr>
-    <div class="col-lg-12 singleListProd">
-        <div class="text-center col-lg-3">
-            <a href="#"><img src="img/faro.jpg" class="text-center imgList"></a>
-        </div>
-        <div class="col-lg-5 tituloList">
-            <a class="text-center"><h5>Faro de la luz loca que da luz todos los dias</h5></a>
-        </div>
-        <div class="col-lg-4 text-center buttonsList">
-            <h3>$56.55</h3>
-            <a href="#" class="btn btn-primary">Informacion</a>
-        </div>
-    </div>
-    <hr>
-    <div class="col-lg-12 singleListProd">
-        <div class="text-center col-lg-3">
-            <a href="#"><img src="img/faro.jpg" class="text-center imgList"></a>
-        </div>
-        <div class="col-lg-5 tituloList">
-            <a class="text-center"><h5>Faro de la luz loca que da luz todos los dias</h5></a>
-        </div>
-        <div class="col-lg-4 text-center buttonsList">
-            <h3>$56.55</h3>
-            <a href="#" class="btn btn-primary">Informacion</a>
-        </div>
-    </div>
-    <hr>
-    <div class="col-lg-12 singleListProd">
-        <div class="text-center col-lg-3">
-            <a href="#"><img src="img/faro.jpg" class="text-center imgList"></a>
-        </div>
-        <div class="col-lg-5 tituloList">
-            <a class="text-center"><h5>Faro de la luz loca que da luz todos los dias</h5></a>
-        </div>
-        <div class="col-lg-4 text-center buttonsList">
-            <h3>$56.55</h3>
-            <a href="#" class="btn btn-primary">Informacion</a>
-        </div>
-    </div>
-    <hr>
-</div>
 {% endblock %}
