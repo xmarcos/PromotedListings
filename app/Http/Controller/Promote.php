@@ -51,8 +51,8 @@ class Promote extends BaseController {
                 return $app['twig']->render('promote/facebook/pages.html.twig', array('pages' => $pages, 'item_id' => $item_id));
             }
         } else {
-            $_SESSION['redirect_login'] = $app->path('facebook_connect',array('item_id' => $item_id));
-            
+            $_SESSION['redirect_login'] = $app->path('promote_pages', array('item_id' => $item_id));
+
             return $app->redirect(
                             $app->path('facebook_connect')
             );
@@ -60,8 +60,8 @@ class Promote extends BaseController {
     }
 
     public function promoteFacebookEvents(Request $request, Application $app) {
+        $item_id = $request->get('item_id');
         if ($app['facebook.api_service']->getAccessToken()) {
-            $item_id = $request->get('item_id');
 
             if ($request->get('event_id')) {
                 $event_id = $request->get('event_id');
@@ -78,6 +78,8 @@ class Promote extends BaseController {
                 return $app['twig']->render('promote/facebook/events.html.twig', array('events' => $events, 'item_id' => $item_id));
             }
         } else {
+            $_SESSION['redirect_login'] = $app->path('promote_events', array('item_id' => $item_id));
+
             return $app->redirect(
                             $app->path('facebook_connect')
             );
@@ -85,8 +87,8 @@ class Promote extends BaseController {
     }
 
     public function promoteFacebookGroups(Request $request, Application $app) {
+        $item_id = $request->get('item_id');
         if ($app['facebook.api_service']->getAccessToken()) {
-            $item_id = $request->get('item_id');
 
             if ($request->get('group_id')) {
                 $group_id = $request->get('group_id');
@@ -103,6 +105,8 @@ class Promote extends BaseController {
                 return $app['twig']->render('promote/facebook/groups.html.twig', array('groups' => $groups, 'item_id' => $item_id));
             }
         } else {
+            $_SESSION['redirect_login'] = $app->path('promote_groups', array('item_id' => $item_id));
+
             return $app->redirect(
                             $app->path('facebook_connect')
             );

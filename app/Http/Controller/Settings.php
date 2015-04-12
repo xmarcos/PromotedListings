@@ -39,7 +39,7 @@ class Settings extends BaseController {
         $app['facebook.ad_service']->setAccessToken($access_token);
 
         $ad_accounts = $app['facebook.ad_service']->getActiveAccounts();
-        dump($ad_accounts);
+        //dump($ad_accounts);
         die();
     }
 
