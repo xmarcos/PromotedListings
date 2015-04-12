@@ -1,0 +1,63 @@
+/*inicio index*/
+.MainCont {
+    margin-top: 5em;
+}
+.inputLogin {
+    padding: 1em;
+}
+/*fin index*/   
+
+/*inicio login*/
+.MainCont {
+    margin-top: 5em;
+}
+.inputLogin {
+    padding: 1em;
+}
+body {
+    background-color: aliceblue;
+}
+/*fin login*/
+
+/*inicio listing productos*/
+.MainCont {
+    margin-top: 5em;
+}
+
+.tituloList {
+    margin-top: 3em;
+
+}
+
+.imgList {
+    max-width: 75%;
+}
+.buttonsList {
+
+}
+.singleListProd {
+    border:1PX solid black;
+    padding: 1em;
+    margin: 0.5em;
+}
+hr {
+    color: gainsboro;
+}
+/*fin listing producto*/
+
+/*inicio producto*/
+.MainCont {
+    margin-top: 5em;
+}
+.descripcionProd {
+    margin-top: 5em;
+    border: 1px solid black;
+    padding: 1em;
+
+}
+.singleProd {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2em;
+}
+/*fin product*/ 
