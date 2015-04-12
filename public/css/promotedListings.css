@@ -61,3 +61,16 @@ hr {
     padding: 2em;
 }
 /*fin product*/ 
+
+/*comienzo singleProduct*/ 
+.buttonsList a {
+    display: block;
+    margin: 1em;
+}
+.singleListProd {
+    padding: 4em 2em;   
+}
+.description {
+    padding-bottom: 5em;
+}
+/*fin singleProduct*/ 
