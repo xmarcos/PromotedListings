@@ -26,7 +26,7 @@ class Settings extends BaseController
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'settingsIndex']);
-        $controllers->get('/facebook/connect', [$this, 'facebookConnect']);
+        $controllers->get('/facebook/connect', [$this, 'facebookConnect'])->bind('facebook_connect');
         $controllers->get('/facebook/callback', [$this, 'facebookCallback']);
         $controllers->get('/facebook/accounts', [$this, 'facebookAccounts']);
 

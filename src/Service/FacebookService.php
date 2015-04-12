@@ -18,6 +18,10 @@ class FacebookService {
         $this->session = null;
     }
 
+    public function getAccessToken() {
+        return $this->access_token;
+    }
+
     public function getSession() {
         if (!is_null($this->access_token)) {
             if (is_null($this->session)) {
