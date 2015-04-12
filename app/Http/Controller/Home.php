@@ -19,6 +19,6 @@ class Home extends BaseController
 
     public function homeIndex(Request $request, Application $app)
     {
-        return $app['twig']->render('home/index.html.twig');
+        return $app['twig']->render('account/index.html.twig');
     }
 }
