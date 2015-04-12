@@ -3,6 +3,7 @@
 {% block title %}Eventos{% endblock %}
 
 {% block content %}
+    <h1>Facebook Events</h1>
     {% for event in events %}
         <a href="{{ path('promote_events', {event_id: event.id, item_id: item_id}) }}">{{event.name}}</a>
         <hr>

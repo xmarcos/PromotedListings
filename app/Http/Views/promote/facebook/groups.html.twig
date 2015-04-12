@@ -3,6 +3,7 @@
 {% block title %}Grupos{% endblock %}
 
 {% block content %}
+    <h1>Facebook Groups</h1>
     {% for group in groups %}
         <a href="{{ path('promote_groups', {group_id: group.id, item_id: item_id}) }}">{{group.name}}</a>
         <hr>

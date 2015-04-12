@@ -3,6 +3,7 @@
 {% block title %}Paginas{% endblock %}
 
 {% block content %}
+    <h1>Facebook Pages</h1>
     {% for page in pages %}
         <a href="{{ path('promote_pages', {page_id: page.id, item_id: item_id}) }}">{{page.name}}</a>
         <hr>
