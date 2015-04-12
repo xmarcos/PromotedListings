@@ -11,7 +11,7 @@ class Listing extends BaseController {
         $this->app = $app;
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', [$this, 'listingIndex']);
+        $controllers->get('/', [$this, 'listingIndex'])->bind('listing');
         $controllers->get('/search/{q}', [$this, 'listingIndex']);
         $controllers->get('/item/{item_id}', [$this, 'listingItem'])->bind('item');
 
@@ -19,12 +19,12 @@ class Listing extends BaseController {
     }
 
     public function listingIndex(Request $request, Application $app) {
-        $meli = new \Meli(
-                $app->config()->get('credentials.meli_app.app_id'), $app->config()->get('credentials.meli_app.app_secret'), $_SESSION['access_token']
-        );
+        $access_token = $_SESSION['meli_account']['access_token'];
+        $user_id = $_SESSION['meli_account']['user_id'];
 
-        $access_token = $_SESSION['access_token'];
-        $user_id = $_SESSION['user_id'];
+        $meli = new \Meli(
+                $app->config()->get('credentials.meli_app.app_id'), $app->config()->get('credentials.meli_app.app_secret'), $access_token
+        );
 
         //Search my own items
         //path
@@ -51,11 +51,11 @@ class Listing extends BaseController {
     }
 
     public function listingItem(Request $request, Application $app) {
+        $access_token = $_SESSION['meli_account']['access_token'];
+        
         $meli = new \Meli(
-                $app->config()->get('credentials.meli_app.app_id'), $app->config()->get('credentials.meli_app.app_secret'), $_SESSION['access_token']
+                $app->config()->get('credentials.meli_app.app_id'), $app->config()->get('credentials.meli_app.app_secret'), $access_token
         );
-
-        $access_token = $_SESSION['access_token'];
 
         if ($request->get('item_id')) {
             $item_id = $request->get('item_id');

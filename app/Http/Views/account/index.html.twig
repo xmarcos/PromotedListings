@@ -3,5 +3,12 @@
 {% block title %}Account!{% endblock %}
 
 {% block content %}
-Account Page
+    Account Page:
+    <br/>
+    {% if is_user %}
+        <a href="{{ path('listing') }}">Mis publicaciones</a>
+    {% else %}
+        <a href="{{ path('login') }}">Logeate con MercadoLibre</a>
+    {% endif %}
+
 {% endblock %}
