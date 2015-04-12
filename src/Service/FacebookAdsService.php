@@ -9,9 +9,10 @@ use Facebook\Entities\AccessToken;
 use FacebookAds\Api;
 use FacebookAds\Object\AdUser;
 use FacebookAds\Object\Fields\AdAccountFields;
+use PDO;
 
-class FacebookAdsService
-{
+class FacebookAdsService {
+
     protected $db;
     protected $api;
     protected $app_id;
@@ -19,24 +20,19 @@ class FacebookAdsService
     protected $access_token;
 
     public function __construct(
-        $app_id,
-        $app_secret,
-        Connection $db
+    $app_id, $app_secret, Connection $db
     ) {
-        $this->db         = $db;
-        $this->app_id     = $app_id;
+        $this->db = $db;
+        $this->app_id = $app_id;
         $this->app_secret = $app_secret;
     }
 
     /**
      * This inits the API.
      */
-    public function setAccessToken(AccessToken $access_token)
-    {
+    public function setAccessToken(AccessToken $access_token) {
         $this->api = Api::init(
-            $this->app_id,
-            $this->app_secret,
-            (string) $access_token
+                        $this->app_id, $this->app_secret, (string) $access_token
         );
         $this->access_token = $access_token;
     }
@@ -44,17 +40,14 @@ class FacebookAdsService
     /**
      * Saves the AccessToken to the DB, should be in a repository but MVP.
      */
-    public function saveAccessToken(AccessToken $access_token, $meli_user_id = null)
-    {
-        $expires = $access_token->getExpiresAt() instanceof DateTime
-            ? $access_token->getExpiresAt()->getTimestamp()
-            : null;
+    public function saveAccessToken(AccessToken $access_token, $meli_user_id = null) {
+        $expires = $access_token->getExpiresAt() instanceof DateTime ? $access_token->getExpiresAt()->getTimestamp() : null;
 
         $data = [
             'meli_user_id' => $meli_user_id,
             'access_token' => (string) $access_token,
-            'expires'      => $expires,
-            'updated'      => (new DateTime('NOW'))->format('Y-m-d H:i:s'),
+            'expires' => $expires,
+            'updated' => (new DateTime('NOW'))->format('Y-m-d H:i:s'),
         ];
 
         $this->db->beginTransaction();
@@ -71,8 +64,7 @@ class FacebookAdsService
         }
     }
 
-    public function getAccessTokenByMeliUserId($meli_user_id = null)
-    {
+    public function getAccessTokenByMeliUserId($meli_user_id = null) {
         $sql = 'SELECT * FROM facebook_access_token WHERE meli_user_id = :meli_user_id LIMIT 1';
         $q = $this->db->prepare($sql);
         $q->bindValue(':meli_user_id', $meli_user_id);
@@ -81,17 +73,15 @@ class FacebookAdsService
         $token = $q->fetch(PDO::FETCH_ASSOC);
 
         return empty($token) ? null : new AccessToken(
-            $token['access_token'],
-            $token['expires']
+                $token['access_token'], $token['expires']
         );
     }
 
-    public function getActiveAccounts()
-    {
+    public function getActiveAccounts() {
         $data = null;
 
         try {
-            $me       = new AdUser('me', null, $this->api);
+            $me = new AdUser('me', null, $this->api);
             $accounts = $me->getAdAccounts();
             foreach ($accounts as $account) {
                 try {
@@ -104,6 +94,7 @@ class FacebookAdsService
                         $data[$account->id] = $account;
                     }
                 } catch (Exception $e) {
+                    
                 }
             }
         } catch (Exception $e) {
@@ -113,8 +104,12 @@ class FacebookAdsService
         return $data;
     }
 
-    public function saveAccounts($accounts = [])
-    {
+    public function saveAccounts($accounts = []) {
         return $data;
     }
+
+    public function getAccessToken() {
+        return $this->access_token;
+    }
+
 }

@@ -10,6 +10,7 @@ use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 use PromotedListings\Service\FacebookAdsService;
 use PromotedListings\Service\MeliAuthenticationService;
+use PromotedListings\Service\FacebookService;
 
 class Application extends Silex\Application
 {
@@ -131,6 +132,12 @@ class Application extends Silex\Application
                 );
             }
         );
+        
+        $this['facebook.api_service'] = $this->share(
+            function (Application $app) {
+                return new FacebookService($app['facebook.ad_service']->getAccessToken());
+            }
+        );
     }
 
     protected function registerProviders()
@@ -171,6 +178,12 @@ class Application extends Silex\Application
                 );
             }
         );
+        
+        if($this['meli.authentication_service']->hasActiveSession()){
+            $user_id = $this['meli.authentication_service']->getCurrentUser()->get('user_id');
+            $access_token = $this['facebook.ad_service']->getAccessTokenByMeliUserId($user_id);
+            $this['facebook.api_service']->setAccessToken($access_token);
+        }
     }
 
     protected function registerRoutes()
