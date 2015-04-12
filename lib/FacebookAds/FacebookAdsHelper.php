@@ -14,6 +14,9 @@ use FacebookAds\Object\TargetingSearch;
 use FacebookAds\Object\Search\TargetingSearchTypes;
 use FacebookAds\Object\Fields\AdGroupBidInfoFields;
 use FacebookAds\Object\Values\BidTypes;
+use FacebookAds\Object\AdCampaign;
+use FacebookAds\Object\Fields\AdCampaignFields;
+
 
 
 
@@ -48,16 +51,30 @@ class FacebookAdsHelper {
 	
 	
 	
-	public static function createCampaign() {
-	    
+	public static function setCampaign($account_id, $data) {
+	
+	    $campaign = new AdCampaign(null, $account_id); 	
+        
+		$campaign->create(array(
+            AdCampaignFields::NAME      => $data['name'],
+            AdCampaignFields::STATUS    => AdCampaign::STATUS_PAUSED,
+            AdCampaignFields::OBJECTIVE => 'WEBSITE_CONVERSIONS' 
+        )); 
+		
+		return $campaign;
+		
 	}
+	
 	
 	
 	public static function createAdset() {
 	
+	
+	
 	}
 	
 	public static function createAd() {
+	
 	
 	}
 	
