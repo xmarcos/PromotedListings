@@ -29,7 +29,7 @@ class FacebookAdsService
     }
 
     /**
-     * This inits the API
+     * This inits the API.
      */
     public function setAccessToken(AccessToken $access_token)
     {
@@ -66,6 +66,7 @@ class FacebookAdsService
             return true;
         } catch (Exception $e) {
             $this->db->rollback();
+
             return false;
         }
     }
@@ -75,7 +76,6 @@ class FacebookAdsService
         $sql = 'SELECT * FROM facebook_access_token WHERE meli_user_id = :meli_user_id LIMIT 1';
         $q = $this->db->prepare($sql);
         $q->bindValue(':meli_user_id', $meli_user_id);
-
 
         return $q->execute()->fetch(PDO::FETCH_ASSOC);
     }
@@ -111,5 +111,4 @@ class FacebookAdsService
     {
         return $data;
     }
-
 }

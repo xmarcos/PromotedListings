@@ -1,15 +1,38 @@
-{% extends "base.html.twig" %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ingresar</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css">
+    </head>
+    <body style="background-color: graytext;">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Promoted Listings</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+            </div><!-- /.container-fluid -->
+        </nav><!-- /.END NAVBAR -->
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8">
+                {% block content %}
+                    <a class="ch-btn ch-btn-large" href="{{ app.path('login')}}" role="button" style="color: white;">Ingresar</a>
+                {% endblock %}
+                </div>
+            </div>
+            <script src="http://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <script src="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.js"></script>
+        </body>
+    </html>
 
-{% block title %}Account!{% endblock %}
-
-{% block content %}
-    Account Page:
-    <br/>
-    {% if app['meli.authentication_service'].hasActiveSession() %}
-        {# {{ dump(app['meli.authentication_service'].getCurrentUser()) }} #}
-        <a href="{{ path('listing') }}">Mis publicaciones</a>
-    {% else %}
-        <a href="{{ path('login') }}">Logeate con MercadoLibre</a>
-    {% endif %}
-
-{% endblock %}
