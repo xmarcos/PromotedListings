@@ -80,3 +80,11 @@ hr {
 .navbar{
     background: #FFE600 url('http://www.bootply.com/assets/example/pt_squares_lg.png') repeat center center fixed;
 }
+
+.error-message{
+  color: #DC7B1C;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0 0 0 5px;
+}
