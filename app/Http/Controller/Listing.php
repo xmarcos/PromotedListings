@@ -46,9 +46,9 @@ class Listing extends BaseController
 
         if ($total_items == 0) {
             if (!isset($params['q']))
-                $message = 'no existen articulos en su cuenta';
+                $message = 'No existen artículos en su cuenta';
             else
-                $message = 'no existen articulos con la siguiente busqueda: '.$params['q'];
+                $message = 'No se encontraron artículos con la siguiente busqueda: '.$params['q'];
         }
 
         $items_response = $app['meli.api']->get(
