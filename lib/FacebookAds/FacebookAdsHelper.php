@@ -154,6 +154,16 @@ class FacebookAdsHelper {
 		}
         return false;
 	}
-
+	
+	
+	public static function getAdPreview($id) {
+	    $callUrl  = "https://graph.facebook.com/v2.3/$id/previews";
+		$callUrl .= '?ad_format=RIGHT_COLUMN_STANDARD&width=250&height=200&access_token=' . self::getAccessToken();   
+		
+        $result = json_decode(file_get_contents($callUrl), true);	
+		echo '<pre>';
+		print_r($result['data'][0]['body']);
+        exit();		
+	}
 	
 }
