@@ -5,7 +5,7 @@
 .inputLogin {
     padding: 1em;
 }
-/*fin index*/   
+/*fin index*/
 
 /*inicio login*/
 .MainCont {
@@ -36,7 +36,7 @@ body {
 
 }
 .singleListProd {
-    border:1PX solid black;
+    border:1PX solid #eee;
     padding: 1em;
     margin: 0.5em;
 }
@@ -51,26 +51,32 @@ hr {
 }
 .descripcionProd {
     margin-top: 5em;
-    border: 1px solid black;
+    border: 1px solid #eee;
     padding: 1em;
 
 }
 .singleProd {
-    border: 1px solid black;
+    border: 1px solid #eee;
     border-radius: 5px;
     padding: 2em;
 }
-/*fin product*/ 
+/*fin product*/
 
-/*comienzo singleProduct*/ 
+/*comienzo singleProduct*/
 .buttonsList a {
     display: block;
     margin: 1em;
 }
 .singleListProd {
-    padding: 4em 2em;   
+    padding: 4em 2em;
 }
 .description {
     padding-bottom: 5em;
 }
-/*fin singleProduct*/ 
+/*fin singleProduct*/
+
+
+
+.navbar{
+    background: #FFE600 url('http://www.bootply.com/assets/example/pt_squares_lg.png') repeat center center fixed;
+}

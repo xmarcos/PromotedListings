@@ -1,7 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Service!{% endblock %}
+{% block title %}Paginas{% endblock %}
 
 {% block content %}
-Service Page
+    {% for page in pages %}
+        <a href="{{ path('promote_pages', {page_id: page.id}) }}">{{page.name}}</a>
+        <hr>
+    {% endfor %}
 {% endblock %}
